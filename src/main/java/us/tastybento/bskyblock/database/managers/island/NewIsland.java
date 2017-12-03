@@ -3,6 +3,8 @@ package us.tastybento.bskyblock.database.managers.island;
 import java.io.IOException;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -10,6 +12,7 @@ import us.tastybento.bskyblock.BSkyBlock;
 import us.tastybento.bskyblock.config.Settings;
 import us.tastybento.bskyblock.database.objects.Island;
 import us.tastybento.bskyblock.generators.IslandWorld;
+import us.tastybento.bskyblock.schematics.CopyWorldBlocks;
 import us.tastybento.bskyblock.schematics.Schematic;
 import us.tastybento.bskyblock.schematics.Schematic.PasteReason;
 
@@ -146,10 +149,21 @@ public class NewIsland {
                 //plugin.getLogger().info("DEBUG: pasting");
                 //long timer = System.nanoTime();
                 // Paste the island and teleport the player home
-                schematic.pasteSchematic(next, player, true, firstTime ? PasteReason.NEW_ISLAND: PasteReason.RESET, oldIsland);
+                final Location loc = next;
+                // TODO Auto-generated method stub
+                CopyWorldBlocks.load(loc, "big_island", "NONE", "NONE", false);  
+                //plugin.getIslands().homeTeleport(player);
+                plugin.getPlayers().removeInTeleport(player.getUniqueId());
+                // Reset any inventory, etc. This is done AFTER the teleport because other plugins may switch out inventory based on world
+                plugin.getPlayers().resetPlayer(player);
+                player.setFlying(true);
+                player.teleport(next);
+
+                //schematic.pasteSchematic(next, player, true, firstTime ? PasteReason.NEW_ISLAND: PasteReason.RESET, oldIsland);
                 //double diff = (System.nanoTime() - timer)/1000000;
                 //plugin.getLogger().info("DEBUG: nano time = " + diff + " ms");
                 //plugin.getLogger().info("DEBUG: pasted overworld");
+                /*
                 if (Settings.netherGenerate && Settings.netherIslands && IslandWorld.getNetherWorld() != null) {
                     // Paste the other world schematic
                     final Location netherLoc = next.toVector().toLocation(IslandWorld.getNetherWorld());
@@ -167,7 +181,7 @@ public class NewIsland {
                             plugin.getLogger().severe("Partner schematic heading '" + schematic.getPartnerName() + "' does not exist");
                         }
                     }
-                }
+                }*/
             }
         }
     }

@@ -14,6 +14,7 @@ public class IslandWorld {
     private static World islandWorld;
     private static World netherWorld;
     private static World endWorld;
+    private static World voidWorld;
 
     /**
      * Generates the Skyblock worlds.
@@ -26,6 +27,9 @@ public class IslandWorld {
         if (plugin.getServer().getWorld(Settings.worldName) == null) {
             Bukkit.getLogger().info("Creating " + plugin.getName() + "'s Island World...");
         }
+        // Create the void world for islands
+        voidWorld = WorldCreator.name(Settings.worldName + "_void").type(WorldType.FLAT).environment(World.Environment.NORMAL).generator(new ChunkGeneratorWorld())
+                .createWorld();
         // Create the world if it does not exist
         islandWorld = WorldCreator.name(Settings.worldName).type(WorldType.FLAT).environment(World.Environment.NORMAL).generator(new ChunkGeneratorWorld())
                 .createWorld();
@@ -117,6 +121,13 @@ public class IslandWorld {
             return Bukkit.getServer().getWorld(Settings.worldName + "_the_end");
         }
         return endWorld;
+    }
+
+    /**
+     * @return the voidWorld
+     */
+    public static World getVoidWorld() {
+        return voidWorld;
     }
 
 
