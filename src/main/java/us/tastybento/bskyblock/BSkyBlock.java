@@ -39,6 +39,10 @@ public class BSkyBlock extends JavaPlugin {
 
     private static BSkyBlock plugin;
 
+    // Supported Minecraft versions
+    private final String[] supportedVersions = {"v_1_12"};
+    private boolean incompatible;
+
     // Databases
     private PlayersManager playersManager;
     private IslandsManager islandsManager;
@@ -56,6 +60,44 @@ public class BSkyBlock extends JavaPlugin {
     @Override
     public void onEnable(){
         plugin = this;
+
+        // Check if the server version is supported by BSkyBlock
+        String currentVersion = Util.getServerVersion();
+        boolean compatible = false;
+
+        StringBuilder versions = new StringBuilder();
+
+        int i = 0;
+        for (String version : supportedVersions) {
+            if (currentVersion.startsWith(version)) compatible = true;
+
+            if (i == 0) versions.append(version.substring(1).replaceFirst("_", ".").replace("_", ".X"));
+            else if (i == supportedVersions.length - 1) versions.append(" or " + version.substring(1).replaceFirst("_", ".").replace("_", ".X"));
+            else versions.append(", " + version.substring(1).replaceFirst("_", ".").replace("_", ".X"));
+
+            i++;
+        }
+
+        if (true) {
+            incompatible = !compatible;
+            // Sorry, but BSkyBlock does not support this version yet :/
+            // For safety reasons, it will shutdown.
+            System.err.println("### BSkyBlock is NOT compatible with this version.");
+            System.err.println("###");
+            System.err.println("### Hopefully you'll read this text before reporting this as a bug on our GitHub!!!");
+            System.err.println("###");
+            System.err.println("### You're using Minecraft Server " + currentVersion);
+            System.err.println("### But BSkyBlock v" + getDescription().getVersion() + " requires you to be using");
+            System.err.println("### Minecraft Server " + versions.toString());
+            System.err.println("###");
+            System.err.println("### Please consider updating your Server software or using a newer");
+            System.err.println("### version of BSkyBlock.");
+            System.err.println("###");
+            System.err.println("### If BSkyBlock is not available on the Server software you are using");
+            System.err.println("### don't hesitate to contribute on our GitHub.");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
 
         // Load configuration and locales. If there are no errors, load the plugin.
         if(PluginConfig.loadPluginConfig(this)){
@@ -161,10 +203,12 @@ public class BSkyBlock extends JavaPlugin {
 
     @Override
     public void onDisable(){
-        // Save data
-        playersManager.shutdown();
-        islandsManager.shutdown();
-        //offlineHistoryMessages.shutdown();
+        if (!incompatible) {
+            // Save data
+            playersManager.shutdown();
+            islandsManager.shutdown();
+            //offlineHistoryMessages.shutdown();
+        }
     }
 
     private void registerCustomCharts(){
