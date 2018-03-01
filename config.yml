@@ -1,12 +1,12 @@
 ############################################################################
-# Config for BSkyBlock V${version}
+# Config for CSkyBlock V${version}
 #
 # Created and maintained by Tastybento with the help of Poslovitch
 ############################################################################
 
 ### General Settings ###
 general:
-  # BSkyBlock uses bStats.org to get global data about the plugin to help improving it.
+  # CSkyBlock uses bStats.org to get global data about the plugin to help improving it.
   # bStats has nearly no effect on your server's performance and the sent data is completely 
   # anonymous so please consider twice if you really want to disable it.
   metrics: true
