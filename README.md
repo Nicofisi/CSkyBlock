@@ -2,7 +2,7 @@ CSkyBlock
 ==========
 [![Build Status](https://travis-ci.org/nicofisi/cskyblock.svg?branch=master)](https://travis-ci.org/nicofisi/cskyblock)
 
-A Skyblock Bukkit plugin for Minecraft derived from the well-known ASkyBlock!
+A Skyblock Bukkit plugin for Minecraft derived from the well-known BSkyBlock and ASkyBlock!
 This is a survival game where the player starts with an island in the sky.
 
 CSkyBlock (CkySkyBlock) represents a turning point on BSkyBlock's history : Tastybento and Poslovitch thought and designed together this complete rewrite in order to provide a whole new way to play Skyblock.
