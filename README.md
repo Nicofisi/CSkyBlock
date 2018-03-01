@@ -11,10 +11,14 @@ CSkyBlock (CkySkyBlock) represents a turning point on BSkyBlock's history : Tast
 
 Add-ons
 =======
-BSkyBlock is built to enable add-ons (plugins that use the BSkyBlock API). Here is a list of the current ones:
+CSkyBlock is built to enable add-ons (plugins that use the CSkyBlock API). Here is a list of the current ones:
 
-* Level - provides island level calculation and a top ten
-* Welcome Warps - provides the warp sign feature
+```
+java.util.NoSuchElementException: head of empty list
+  at scala.collection.immutable.Nil$.head(List.scala:428)
+  at scala.collection.immutable.Nil$.head(List.scala:425)
+  ... 29 elided
+```
 
 You can find the projects on tastybento's GitHub.
 
