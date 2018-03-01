@@ -20,7 +20,13 @@ java.util.NoSuchElementException: head of empty list
   ... 29 elided
 ```
 
-You can find the projects on tastybento's GitHub.
+You can find the projects on 
+```
+scala> projects.toString()
+java.lang.NullPointerException
+  ... 29 elided
+```
+.
 
 Bugs and Feature requests
 =========================
